@@ -1,0 +1,263 @@
+Step 1 :- checking windows version - supports 64-bit windows version
+		
+		Windows + R -> type winver -> Enter
+
+		we installed
+			Windows 11
+			version 24H2
+			Windows 11 Home Single Language
+		our windows is suitable for Docker Desktop with WSL 2 backend
+
+step 2 :- check WSL is already installed
+		
+		our windows version is suitable for Docker Desktop with WSL 2 backend
+		
+		press Windows key
+		Search for PowerShell
+		Right-click Windows PowerShell
+		Select Run as administrator
+		Click Yes when Windows asks for permission
+		Then run:
+			wsl --install
+		What this will install
+			WSL means Windows Subsystem for Linux
+			for Docker, the architecture will eventually look like
+			
+			Windows 11
+				|
+				v
+			Docker Desktop
+				|
+				v
+			      WSL 2
+				|
+				V
+			Linux Environment
+				|
+				v
+			   Docker Engine
+				|
+				 - SpringBoot container
+				|
+				 - MySQL container
+				|
+				 - kafka container
+				|
+				  - redis container
+
+
+			Windows PowerShell
+			Copyright (C) Microsoft Corporation. All rights reserved.
+
+			PS C:\WINDOWS\system32> wsl --install
+			Downloading: Windows Subsystem for Linux 2.7.12
+			Installing: Windows Subsystem for Linux 2.7.12
+			Windows Subsystem for Linux 2.7.12 has been installed.
+			Installing Windows optional component: VirtualMachinePlatform
+
+			Deployment Image Servicing and Management tool
+			Version: 10.0.26100.8972
+
+			Image Version: 10.0.26100.9168
+
+			Enabling feature(s)
+			[==========================100.0%==========================]
+			The operation completed successfully.
+			The requested operation is successful. Changes will not be effective until the system is rebooted.
+			The requested operation is successful. Changes will not be effective until the system is rebooted.
+			PS C:\WINDOWS\system32>
+
+
+
+step 3 :- restart system and open powershell in administrator mode
+	
+		PS C:\WINDOWS\system32> wsl --version
+
+		WSL version: 2.7.12.0
+		Kernel version: 6.18.33.2-2
+		WSLg version: 1.0.73.2
+		MSRDC version: 1.2.7214
+		Direct3D version: 1.611.1-81528511
+		DXCore version: 10.0.26100.1-240331-1435.ge-release
+		Windows version: 10.0.26200.9168
+		PS C:\WINDOWS\system32>
+
+		WSL is installed and working correctly
+		
+		our output confirms 
+			WSL version: 2.7.12.0
+			Kernel version: 6.18.33.2-2
+			Windows version: 10.0.26200.9168
+			
+step 4:- check linux distribution is installed
+
+		PS C:\WINDOWS\system32> wsl -l -v
+		Windows Subsystem for Linux has no installed distributions.
+		You can resolve this by installing a distribution with the instructions below:
+
+		Use 'wsl.exe --list --online' to list available distributions
+		and 'wsl.exe --install <Distro>' to install.
+		PS C:\WINDOWS\system32>
+	
+		WSL 2 itself: ✅ Installed
+		WSL kernel: ✅ Working
+		Linux distribution: ❌ Not installed yet
+		
+step 5:- for docker desktop, install ubuntu as our WSL distirbution
+		
+			PS C:\WINDOWS\system32> wsl --install -d Ubuntu
+			Downloading: Ubuntu
+			Installing: Ubuntu
+			Distribution successfully installed. It can be launched via 'wsl.exe -d Ubuntu'
+			Launching Ubuntu...
+			Provisioning the new WSL instance Ubuntu
+			This might take a while...
+			Create a default Unix user account: sukanya
+			New password:
+			Retype new password:
+			passwd: password updated successfully
+			usermod: no changes
+			Help improve Ubuntu!
+
+			Help us improve Ubuntu features and compatibility by sharing system reports with Canonical.
+			Reports are sent anonymously and do not contain any personal data.
+			For legal details, please visit: https://ubuntu.com/legal/systems-information-notice
+
+			We will save your answer to Windows and will only ask you once.
+
+			Would you like to opt-in to platform metrics collection (Y/n)? To see an example of the data collected, enter 'e'.
+			[Y/n/e]: y
+			sukanya@DESKTOP-DCIEKB3:/mnt/c/WINDOWS/system32$ exit
+			exit
+			
+			you'll return to PowerShell
+			
+			then run:
+			wsl -l -v
+			
+			PS C:\WINDOWS\system32> wsl -l -v
+				NAME      STATE           VERSION
+			* 	Ubuntu    Stopped         2
+			
+			means :-
+				WSL 2: ✅ Installed
+				WSL 2 kernel: ✅ Working
+				Ubuntu: ✅ Installed
+				Ubuntu is using WSL 2: ✅
+				Windows 11 24H2: ✅
+				
+Step 6 :- install Docker Desktop	
+			
+			i) Download Docker Desktop
+				
+				https://www.docker.com/products/docker-desktop
+				
+				choose AMD64
+				
+				Docker Desktop Installer.exe
+				
+step 7 :- run the installer
+			choose these options
+				1. per-user installation(Recommended) - keep this selected
+				2. Add shortcut to desktop - we can leave this checked
+				
+				● Per-user installation (Recommended)
+
+				○ All-users installation
+
+				☑ Add shortcut to desktop
+				
+			Now click ok
+				
+				Docker will continue the installation
+				close once installed
+				
+			now WSL's welcome/documentation window will be opened. close this window
+			
+step 8 :- now let's open Docker Desktop
+			
+			i) press the Windows Key
+			ii) search for Docker Desktop
+			iii) open Docker Desktop
+			iv) wait until Docker finishes starting
+			
+			once Docker Desktop opens 
+			
+			i) Docker Subscription Service Agreement screen opens, click Accept
+			ii) Docker Desktop welcome/sign-in screen opens
+					
+					since we are setting this up for personal learning we dont need to create or sign into a Docker account 
+					
+					sign-in using google
+					username sukanyaj6
+					
+			iii) open a new PowerShell window and run these one at a time
+			
+					docker --version
+					
+					PS C:\WINDOWS\system32> docker --version
+					Docker version 29.7.2, build a7dcaa6
+					
+					gives you the Docker CLI version
+					
+			iv) then run "docker compose version"
+					
+					PS C:\WINDOWS\system32> docker compose version
+					Docker Compose version v5.4.0
+					
+				docker compose is for running multiple containers as one application
+
+				PS C:\WINDOWS\system32> docker run hello-world
+				Unable to find image 'hello-world:latest' locally
+				latest: Pulling from library/hello-world
+				4f55086f7dd0: Pull complete
+				d5e71e642bf5: Download complete
+				Digest: sha256:5dd0d3e6e255913fc30f90b9f2b1d359cc2cbdb48090cc4b65f1676e203243cc
+				Status: Downloaded newer image for hello-world:latest
+
+				Hello from Docker!
+				This message shows that your installation appears to be working correctly.
+
+				To generate this message, Docker took the following steps:
+				1. The Docker client contacted the Docker daemon.
+				2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+				(amd64)
+				3. The Docker daemon created a new container from that image which runs the
+				executable that produces the output you are currently reading.
+				4. The Docker daemon streamed that output to the Docker client, which sent it
+				to your terminal.
+
+				To try something more ambitious, you can run an Ubuntu container with:
+				$ docker run -it ubuntu bash
+
+				Share images, automate workflows, and more with a free Docker ID:
+				https://hub.docker.com/
+
+				For more examples and ideas, visit:
+				https://docs.docker.com/get-started/
+				
+				Is hello-word available locally?
+							↓
+						   NO
+							↓
+					Try to download it from Docker Hub
+							↓
+					No such repository
+							↓
+					ERROR
+			
+				PS C:\WINDOWS\system32> docker images
+                                                                                                                                                                                               i Info →   U  In Use
+					IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
+					hello-world:latest   5dd0d3e6e255       25.9kB         9.49kB    U
+
+				PS C:\WINDOWS\system32> docker ps
+					CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+			
+				PS C:\WINDOWS\system32> docker ps -a
+					CONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                     PORTS     NAMES
+					327b6b97be80   hello-world   "/hello"   3 minutes ago   Exited (0) 3 minutes ago             elastic_galileo
+
+			
+			
+			

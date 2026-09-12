@@ -1,0 +1,86 @@
+
+	
+	1. Containerizing our springboot application
+		
+		mvn spring-boot:build-image
+		docker login
+		docker push username/application-name
+		
+	2. To download an image from Docker registry
+		docker pull nginx
+		
+	3. To upload/push a Docker Image from our local system to Docker Hub/Registry
+		
+		docker push username/image-name
+		
+	4. to create and run a container from an image	
+			
+		docker run image-name
+		
+	5. to map a port on the host machine to a port inside the container
+		
+		docker run -p 8080:80nginx
+		
+	6. to assign a name to a container
+		
+		docker run --name mynginx nginx
+		
+	7. to run in detached mode
+		
+		docker run -d nginx
+		
+	8. to run in interactive mode
+		
+		docker run -i nginx
+		
+	9. to stop a running container
+		
+		docker stop my-nginx
+		
+	10. to start a running container
+		
+		docker start my-nginx
+		
+	11. to remove a stopped container
+		
+		docker rm my-nginx
+		
+	12. to remove a Docker Image from local storage
+		
+		docker rmi image-name
+		
+	13. used to list currently running containers
+		
+		docker ps
+		
+	14. show all container, running or stopped containers
+		
+		docker ps -a
+		
+	15. show all docker images
+		
+		docker images
+		
+	16. to access a running container from the terminal 
+		
+		-i interactive
+		-t terminal
+		-exec execute a command inside the container
+		
+		docker exec -i -t my-nginx bash
+		
+	17. build a Docker Image from a docker file
+		
+		docker build -t username/my-application .
+		
+		build 	:- build a docker image from a docker file
+		-t 		:- tag/name the image
+		.  		:- represents current directory
+		
+	18. used to view the logs/output of a container
+		
+		docker logs my-nginx
+		
+	19. detailed information about a docker object
+			
+		docker inspect my-nginx

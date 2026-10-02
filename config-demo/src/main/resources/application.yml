@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: config-demo
+  #profiles:
+    #active: prod
+
+#build:
+  #id: 101
+  #version: 1.2.3
+  #name: "Default-Build"
+
+build:
+  id: ${id}
+  version: 4.5.6
+  name: "Program Arguments PlaceHolder"
+
+
+
